@@ -22,7 +22,7 @@ DEFAULT		=	"" #"\033[00;39m"
 
 CC		=	gcc
 
-#CFLAGS		=
+CFLAGS		= -Werror -Wall -Wextra
 
 #LIB		=
 
