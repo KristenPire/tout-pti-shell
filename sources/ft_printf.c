@@ -1,5 +1,4 @@
 #include "ft_printf.h"
-
 #include <stdio.h>
 
 char *handle_integer(va_list *argp)
@@ -48,7 +47,11 @@ int ft_printf(const char *str, ...)
 {
   va_list argp;
   int parameter;
+  char **finalWordtab;
+  int counter;
 
+  counter = 0;
+  finalWordtab = wordtab(str);
   va_start(argp, str);
   while (*str != '\0') // s
     {
@@ -56,8 +59,7 @@ int ft_printf(const char *str, ...)
       if (parameter == 1)
         {
           str++;
-          char *result = switch_parameter(*str, &argp);
-          printf("%s", result);
+          finalWordtab[counter++] = switch_parameter(*str, &argp);
         }
       if (parameter == 2)
         str += 2;
