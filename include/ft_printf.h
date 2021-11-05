@@ -2,10 +2,13 @@
 #define FT_PRINTF_H
 
 #include <stdarg.h>
+#include "wordtab.h"
+#include "helper.h"
+#include "option_csdi.h"
 
 int ft_printf(const char *, ...);
 
-typedef char *(*functionPtr)(va_list *);
+typedef void(*functionPtr)(va_list *);
 
 typedef struct s_Map
 {

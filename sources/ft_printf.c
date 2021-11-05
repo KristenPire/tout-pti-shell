@@ -1,37 +1,24 @@
 #include "ft_printf.h"
 
-#include <stdio.h>
-
-char *handle_integer(va_list *argp)
+void switch_parameter(const char c, va_list *argp)
 {
-  int int_to_print = va_arg(*argp, int);
-
-  printf("%d", int_to_print);
-  return ("3");
-}
-
-char *handle_string(va_list *argp)
-{
-  return (va_arg(*argp, char *));
-}
-
-char *switch_parameter(const char c, va_list *argp)
-{
+  t_Map *ptr;
   t_Map switchMap[] = {
-    {'d', handle_integer},
-    {'s', handle_string}
+    {'d', handle_decimal},
+    {'s', handle_string},
+    {'c', handle_char}
   };
 
-  t_Map *ptr;
   ptr = switchMap;
-
   while (ptr)
     {
       if (ptr->key == c)
-        return ptr->func(argp);
+        {
+          ptr->func(argp);
+          return;
+        }
       ptr++;
     }
-  return ("");
 }
 
 int check_parameter(const char c)
@@ -44,27 +31,33 @@ int check_parameter(const char c)
         return (0);
 }
 
+void build_string(const char *str, va_list *argp)
+{
+  int parameter;
+  int word_counter;
+
+  word_counter = 0;
+  while (*str != '\0')
+    {
+      parameter = check_parameter(*str);
+      if (parameter == 1) // '%'
+        {
+          switch_parameter(*(++str), argp);
+          str++;
+        }
+      if (parameter == 2) // '\'
+          str += 2;
+      else // anything else
+        write(1, str++, 1);
+    }
+}
+
 int ft_printf(const char *str, ...)
 {
   va_list argp;
-  int parameter;
 
   va_start(argp, str);
-  while (*str != '\0') // s
-    {
-      parameter = check_parameter(*str);
-      if (parameter == 1)
-        {
-          str++;
-          char *result = switch_parameter(*str, &argp);
-          printf("%s", result);
-        }
-      if (parameter == 2)
-        str += 2;
-      else
-        str++;
-    }
-
+  build_string(str, &argp);
   va_end(argp);
   return (0);
 }
