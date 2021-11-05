@@ -3,6 +3,7 @@
 
 #include <stdarg.h>
 #include "wordtab.h"
+#include "helper.h"
 
 int ft_printf(const char *, ...);
 
