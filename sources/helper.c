@@ -25,3 +25,13 @@ void print_wordtab(char **wordtab)
       i++;
     }
 }
+
+void fill_buffer(char *buffer, char c, int size)
+{
+  int i;
+
+  i = 0;
+  while(i < size)
+    buffer[i++] = c;
+  return;
+}

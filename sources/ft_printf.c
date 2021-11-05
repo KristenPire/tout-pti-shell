@@ -49,29 +49,32 @@ int check_parameter(const char c)
         return (0);
 }
 
-int ft_printf(const char *str, ...)
+void build_string(const char *str, va_list *argp, char **final_wordtab)
 {
-  va_list argp;
   int parameter;
-  char **final_wordtab;
-  int counter;
+  int word_counter;
 
-  counter = 0;
-  final_wordtab = wordtab(str);
-  va_start(argp, str);
+  word_counter = 0;
   while (*str != '\0') // s
     {
       parameter = check_parameter(*str);
-      if (parameter == 1)
-        {
-          str++;
-          final_wordtab[counter++] = switch_parameter(*str, &argp);
-        }
-      if (parameter == 2)
+      if (parameter == 1) // '%'
+          final_wordtab[word_counter++] = switch_parameter(*(++str), argp);
+      if (parameter == 2) // '\'
         str += 2;
       else
         str++;
     }
+}
+
+int ft_printf(const char *str, ...)
+{
+  va_list argp;
+  char **final_wordtab;
+
+  final_wordtab = wordtab(str);
+  va_start(argp, str);
+  build_string(str, &argp, final_wordtab);
   print_wordtab(final_wordtab);
   va_end(argp);
   return (0);
