@@ -1,22 +1,24 @@
 #include "ft_printf.h"
 
-char *switch_parameter(const char *str, va_list *argp)
+void switch_parameter(const char c, va_list *argp)
 {
   t_Map *ptr;
   t_Map switchMap[] = {
     {'d', handle_decimal},
-    {'s', handle_string}
+    {'s', handle_string},
+    {'c', handle_char}
   };
 
   ptr = switchMap;
   while (ptr)
     {
-      if (ptr->key == *str)
-        return ptr->func(argp);
+      if (ptr->key == c)
+        {
+          ptr->func(argp);
+          return;
+        }
       ptr++;
     }
-  str++;
-  return ("");
 }
 
 int check_parameter(const char c)
@@ -39,10 +41,13 @@ void build_string(const char *str, va_list *argp)
     {
       parameter = check_parameter(*str);
       if (parameter == 1) // '%'
-        ft_putstr(switch_parameter(++str, argp));
+        {
+          switch_parameter(*(++str), argp);
+          str++;
+        }
       if (parameter == 2) // '\'
           str += 2;
-      else
+      else // anything else
         write(1, str++, 1);
     }
 }

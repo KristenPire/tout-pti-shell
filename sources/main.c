@@ -2,7 +2,7 @@
 
 int main()
 {
-  ft_printf("test %d, et la c'est %s!", 12, "test");
+  ft_printf("string:  '%s' ||  decimal :  '%d' ||  char : '%c' ||\n", "je suis une string",  12, 'c');
 
-  return 1;
+  return (0);
 }

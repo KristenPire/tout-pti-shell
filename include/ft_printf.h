@@ -8,7 +8,7 @@
 
 int ft_printf(const char *, ...);
 
-typedef char *(*functionPtr)(va_list *);
+typedef void(*functionPtr)(va_list *);
 
 typedef struct s_Map
 {

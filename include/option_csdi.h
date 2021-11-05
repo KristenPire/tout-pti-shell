@@ -1,6 +1,7 @@
 #pragma once
 #include <stdarg.h>
+#include "helper.h"
 
-char *handle_decimal(va_list *);
-char *handle_string(va_list *);
-char *handle_char(va_list *);
+void handle_decimal(va_list *);
+void handle_string(va_list *);
+void handle_char(va_list *);
