@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include "wordtab.h"
 #include "helper.h"
+#include "option_csdi.h"
 
 int ft_printf(const char *, ...);
 
