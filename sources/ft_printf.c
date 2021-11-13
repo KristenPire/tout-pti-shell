@@ -1,7 +1,33 @@
 #include "ft_printf.h"
 
-void switch_parameter(const char c, const char *str)
+
+void ft_writeD(int d)
 {
+    char *str;
+    //int   i;
+
+    str = ft_itoa(d);
+    /* while (str[i])
+    {
+        write(1, str[i], 1);
+        i++;
+    }
+
+    */
+}
+void    ft_writeS(char *str)
+{
+    //ft_putstr(str);
+}
+void switch_parameter(const char c, const char *str) //varg peut etre un int nn ? pourquoi pas use un size_t?
+{
+    int i;
+
+    i = 0;
+    if (c = 'd')
+        ft_writeD(str);
+    if (c = 's')
+        ft_writeS(str);
 
 }
 
@@ -32,8 +58,7 @@ int ft_printf(const char* str, ...)
         if (parameter == 2)
             i += 2;
         else
-            i++;
+            i++; /* pq pas write direct ? genre imaginons le bail cest "salut %s !", il ecrit "salut" et des quil voit un %
+            il fait la passe a un autre truc qui va ecrire le % puis on i+2 et go ecrire " !"
     }
-
-
 }

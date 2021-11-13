@@ -1,5 +1,6 @@
-#include "wordtab.h"
-
+//#include "wordtab.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 char **wordtab(const char *str)
 {
@@ -19,7 +20,19 @@ char **wordtab(const char *str)
             j++;
         i++;
     }
+    printf("j = %d\n",j);
     dst = malloc(sizeof(char*) * j + 1);
     dst[j] = '\0';
     return (dst);
+}
+
+int main()
+{
+    char **lol;
+    int     i;
+
+    i = 5;
+    lol = wordtab("salut %dl");
+    printf("salut %%dl", i);
+    return 0;
 }
